@@ -23,7 +23,7 @@ class Superhero:
         self.fast_attack: float = None
 
     def compute_filiation_coefficient(self, team_alignment: str) -> float:
-        random_number: int = randint(0, 9)
+        random_number: int = 1 + randint(0, 9)
 
         filiation_coefficient = random_number if self.alignment == team_alignment else 1/random_number
         return filiation_coefficient
