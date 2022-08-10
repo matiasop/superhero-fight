@@ -61,3 +61,6 @@ class Superhero:
         self.mental_attack = self.compute_mental()
         self.strong_attack = self.compute_strong()
         self.fast_attack = self.compute_fast()
+
+    def __repr__(self) -> str:
+        return f"(id: {self.id}) {self.name}"
