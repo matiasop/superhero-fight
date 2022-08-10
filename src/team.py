@@ -1,3 +1,4 @@
+from functools import reduce
 from random import randint
 from typing import Any
 
@@ -10,6 +11,7 @@ class Team:
         self.team_size: int = 5
         self.team_ids: set[int] = set()
         self.team: list[Superhero] = []
+        self.alive_members: list[Superhero] = []
         self.team_alignment: str = None
 
         self.create_team()
@@ -33,6 +35,7 @@ class Team:
             superhero: Superhero = Superhero(id, name, powerstats, alignment)
             self.team_ids.add(id)
             self.team.append(superhero)
+            self.alive_members.append(superhero)
 
     def find_team_alignment(self) -> None:
         good_counter: int = 0
@@ -45,3 +48,8 @@ class Team:
     def compute_team_real_stats(self) -> None:
         for superhero in self.team:
             superhero.compute_all_stats(self.team_alignment)
+
+    def is_someone_alive(self) -> bool:
+        superheroes_hp: list[int] = [superhero.hp for superhero in self.team]
+        total_hp: int = reduce(lambda a, b: a + b, superheroes_hp)
+        return total_hp > 0
