@@ -10,6 +10,7 @@ class Team:
         self.team_size: int = 5
         self.team_ids: set[int] = set()
         self.team: list[Superhero] = []
+        self.team_alignment: str = None
 
         self.create_team()
         self.find_team_alignment()
@@ -31,3 +32,11 @@ class Team:
             superhero: Superhero = Superhero(id, name, powerstats, alignment)
             self.team_ids.add(id)
             self.team.append(superhero)
+
+    def find_team_alignment(self) -> None:
+        good_counter: int = 0
+        for superhero in self.team:
+            if superhero.alignment == "good":
+                good_counter += 1
+
+        self.team_alignment = "good" if good_counter >= 3 else "bad"
