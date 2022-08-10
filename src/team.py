@@ -14,6 +14,7 @@ class Team:
 
         self.create_team()
         self.find_team_alignment()
+        self.compute_team_real_stats()
 
     def create_team(self) -> None:
         while len(self.team_ids) < self.team_size:
@@ -40,3 +41,7 @@ class Team:
                 good_counter += 1
 
         self.team_alignment = "good" if good_counter >= 3 else "bad"
+
+    def compute_team_real_stats(self) -> None:
+        for superhero in self.team:
+            superhero.compute_all_stats(self.team_alignment)
