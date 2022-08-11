@@ -1,4 +1,3 @@
-from ctypes import alignment
 from requests import get, Response
 from typing import Any, Optional
 
