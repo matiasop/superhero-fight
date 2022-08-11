@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 
 class Superhero:
@@ -18,20 +18,19 @@ class Superhero:
         self.actual_stamina: int = randint(0, 10)
         self.filiation_coefficient: float = None
         self.hp: int = None
+
         self.mental_attack: float = None
         self.strong_attack: float = None
         self.fast_attack: float = None
 
     def compute_filiation_coefficient(self, team_alignment: str) -> float:
         random_number: int = 1 + randint(0, 9)
-
         filiation_coefficient = random_number if self.alignment == team_alignment else 1/random_number
         return filiation_coefficient
 
     def compute_hp(self) -> int:
         stats_average: float = 0.8*self.strength + 0.7*self.durability + self.power
         hp: int = 100 + int(0.5*stats_average*(1 + 0.1*self.actual_stamina))
-
         return hp
 
     def compute_real_stat(self, base: int) -> int:
@@ -62,5 +61,21 @@ class Superhero:
         self.strong_attack = self.compute_strong()
         self.fast_attack = self.compute_fast()
 
+    def compute_damage(self, attack_option) -> float:
+        damage: float
+        if attack_option == "mental":
+            damage = self.mental_attack
+        elif attack_option == "strong":
+            damage = self.strong_attack
+        elif attack_option == "fast":
+            damage = self.fast_attack
+        return damage
+
+    def get_damaged(self, damage: float) -> None:
+        if damage >= self.hp:
+            self.hp = 0
+        else:
+            self.hp -= damage
+
     def __repr__(self) -> str:
-        return f"(id: {self.id}) {self.name}"
+        return f"{self.name} (hp: {round(self.hp, 0)})"
