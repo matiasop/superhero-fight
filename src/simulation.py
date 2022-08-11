@@ -87,10 +87,10 @@ class Simulation:
             for superhero in self.teams[team_id].team:
                 if superhero.hp == 0:
                     message += self.add_html_tag(
-                        f"id: {superhero.id}, name: {superhero.name}, Dead", html, "p", new_line=False)
+                        f"id: {superhero.id}, name: {superhero.name}, Dead", html, "p", new_line=not html)
                 else:
                     message += self.add_html_tag(
-                        f"id: {superhero.id}, name: {superhero.name}, hp: {round(superhero.hp, 0)}", html, "p", new_line=False)
+                        f"id: {superhero.id}, name: {superhero.name}, hp: {round(superhero.hp, 0)}", html, "p", new_line=not html)
 
         message += "\n"
         message += self.add_html_tag(
