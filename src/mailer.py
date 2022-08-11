@@ -14,10 +14,8 @@ class Mailer:
             "subject": "Superhero Fight Simulator Summary",
             "html": summary
         }
-        response = post(
+        post(
             url=f"https://api.mailgun.net/v3/{config('DOMAIN_NAME')}/messages",
             auth=("api", config('API_KEY')),
             data=data
         )
-        print(response.status_code)
-        print(response.json())
