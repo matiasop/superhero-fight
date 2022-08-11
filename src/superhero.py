@@ -1,9 +1,10 @@
 from random import randint, choice
+from typing import Dict
 
 
 class Superhero:
 
-    def __init__(self, id: int, name: str, powerstats: dict[str, int], alignment: str) -> None:
+    def __init__(self, id: int, name: str, powerstats: Dict[str, int], alignment: str) -> None:
         self.id: int = id
         self.name: str = name
 

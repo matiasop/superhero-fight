@@ -1,5 +1,6 @@
 from decouple import config
 from random import choice
+from typing import List
 
 from team import Team
 from superhero import Superhero
@@ -8,7 +9,7 @@ from mailer import Mailer
 
 class Simulation:
     def __init__(self) -> None:
-        self.teams: list[Team] = []
+        self.teams: List[Team] = []
         self.current_team: int = 0
         self.winner_team: int = None
 
@@ -57,7 +58,7 @@ class Simulation:
         return choice(self.teams[team_index].alive_members)
 
     def attack(self, attacker: Superhero, defender: Superhero) -> None:
-        ATTACK_OPTIONS: list[str] = ["mental", "strong", "fast"]
+        ATTACK_OPTIONS: List[str] = ["mental", "strong", "fast"]
         attack_type = choice(ATTACK_OPTIONS)
         damage: float = attacker.compute_damage(attack_type)
         defender.get_damaged(damage)

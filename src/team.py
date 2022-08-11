@@ -1,5 +1,6 @@
 from functools import reduce
 from random import randint
+from typing import List, Set
 
 from superhero import Superhero
 from superhero_api_caller import SuperheroAPICaller
@@ -8,9 +9,9 @@ from superhero_api_caller import SuperheroAPICaller
 class Team:
     def __init__(self) -> None:
         self.team_size: int = 5
-        self.team_ids: set[int] = set()
-        self.team: list[Superhero] = []
-        self.alive_members: list[Superhero] = []
+        self.team_ids: Set[int] = set()
+        self.team: List[Superhero] = []
+        self.alive_members: List[Superhero] = []
         self.team_alignment: str = None
 
         self.create_team()
