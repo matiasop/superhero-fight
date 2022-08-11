@@ -63,7 +63,7 @@ class Simulation:
             self.teams[self.other_team()].remove_member(defender)
             print(f"{defender} ha muerto")
 
-    def summary(self) -> str:
+    def summary(self) -> None:
         message: str = "Resumen\n"
         for team_id in range(2):
             message += f"Estado final del equipo {team_id}:\n"
