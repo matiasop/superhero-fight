@@ -1,3 +1,4 @@
+from decouple import config
 from random import choice
 
 from team import Team
@@ -41,7 +42,7 @@ class Simulation:
         print(self.summary(html=False))
 
         Mailer.send_summary(self.summary(html=True))
-        print("Mail sent")
+        print(f"Mail sent to {config('RECEIVER_MAIL_ADDRESS')}")
 
     def fight_continues(self) -> bool:
         for team in self.teams:
