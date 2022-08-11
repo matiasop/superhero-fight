@@ -1,7 +1,9 @@
+from decouple import config
 from random import choice
 
 from team import Team
 from superhero import Superhero
+from mailer import Mailer
 
 
 class Simulation:
@@ -37,7 +39,10 @@ class Simulation:
         self.winner_team = self.other_team()
         print("\n", "La pelea ha terminado")
 
-        self.summary()
+        print(self.summary(html=False))
+
+        Mailer.send_summary(self.summary(html=True))
+        print(f"Mail sent to {config('RECEIVER_MAIL_ADDRESS')}")
 
     def fight_continues(self) -> bool:
         for team in self.teams:
@@ -63,18 +68,31 @@ class Simulation:
             self.teams[self.other_team()].remove_member(defender)
             print(f"{defender} ha muerto")
 
-    def summary(self) -> None:
-        message: str = "Resumen\n"
+    def add_html_tag(self, text: str, html: bool, tag: str, new_line: bool = True) -> str:
+        result: str = ""
+        if html:
+            result += f"<{tag}>{text}</{tag}>"
+        else:
+            result += text
+        if new_line:
+            result += "\n"
+        return result
+
+    def summary(self, html: bool) -> str:
+        message: str = self.add_html_tag("Resumen", html, "h1")
         for team_id in range(2):
-            message += f"Estado final del equipo {team_id}:\n"
+            message += self.add_html_tag(
+                f"Estado final del equipo {team_id}:", html,  "h2")
             for superhero in self.teams[team_id].team:
                 if superhero.hp == 0:
-                    message += f"id: {superhero.id}, name: {superhero.name}, Dead\n"
+                    message += self.add_html_tag(
+                        f"id: {superhero.id}, name: {superhero.name}, Dead", html, "p", new_line=False)
                 else:
-                    message += f"id: {superhero.id}, name: {superhero.name}, hp: {round(superhero.hp, 0)}\n"
-            message += "\n"
+                    message += self.add_html_tag(
+                        f"id: {superhero.id}, name: {superhero.name}, hp: {round(superhero.hp, 0)}", html, "p", new_line=False)
 
-        message += "Equipo Vencedor: "
-        message += f"{self.winner_team}"
+        message += "\n"
+        message += self.add_html_tag(
+            f"Equipo Vencedor: {self.winner_team}", html, "b")
 
-        print(message)
+        return message
