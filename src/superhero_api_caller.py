@@ -4,22 +4,22 @@ from typing import Any, Optional
 
 
 class SuperheroAPICaller:
-    @classmethod
-    def get_response(cls, url: str) -> dict[str, Any]:
+    @staticmethod
+    def get_response(url: str) -> dict[str, Any]:
         response: Response = get(url)
         data: dict[str, Any] = response.json()
         return data
 
-    @classmethod
-    def get_name(cls, id: int) -> str:
+    @staticmethod
+    def get_name(id: int) -> str:
         url: str = f"{config('API_URL')}{config('ACCESS_TOKEN')}/{id}"
         data: dict[str, Any] = SuperheroAPICaller.get_response(url)
         name: str = data["name"]
 
         return name
 
-    @classmethod
-    def get_powerstats(cls, id: int) -> Optional[dict[str, int]]:
+    @staticmethod
+    def get_powerstats(id: int) -> Optional[dict[str, int]]:
         url: str = f"{config('API_URL')}{config('ACCESS_TOKEN')}/{id}/powerstats"
         data: dict[str, Any] = SuperheroAPICaller.get_response(url)
 
@@ -33,8 +33,8 @@ class SuperheroAPICaller:
 
         return powerstats
 
-    @classmethod
-    def get_alignment(cls, id) -> Optional[str]:
+    @staticmethod
+    def get_alignment(id) -> Optional[str]:
         url: str = f"{config('API_URL')}{config('ACCESS_TOKEN')}/{id}/biography"
         data: dict[str, Any] = SuperheroAPICaller.get_response(url)
         alignment = data["alignment"]
