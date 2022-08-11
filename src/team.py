@@ -1,6 +1,5 @@
 from functools import reduce
 from random import randint
-from typing import Any
 
 from superhero import Superhero
 from superhero_api_caller import SuperheroAPICaller
@@ -50,6 +49,8 @@ class Team:
             superhero.compute_all_stats(self.team_alignment)
 
     def is_someone_alive(self) -> bool:
-        superheroes_hp: list[int] = [superhero.hp for superhero in self.team]
-        total_hp: int = reduce(lambda a, b: a + b, superheroes_hp)
-        return total_hp > 0
+        return len(self.alive_members) > 0
+
+    def remove_member(self, member: Superhero) -> None:
+        self.alive_members = list(
+            filter(lambda x: x != member, self.alive_members))
